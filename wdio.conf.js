@@ -21,7 +21,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/upload.js'
+        './test/specs/**/iframe.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -51,11 +51,12 @@ export const config = {
     //
     capabilities: [{
         browserName: 'chrome'
-    }, {
-        browserName: 'firefox'
-    }, {
-        browserName: 'MicrosoftEdge'
-    }],
+    }//, {
+     //   browserName: 'firefox'
+    //}, {
+     //   browserName: 'MicrosoftEdge'
+    //}
+],
 
     //
     // ===================
