@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals';
+import { $, expect, browser } from "@wdio/globals";
 
 describe('IFrame', () => {
     it('Working with iFrame', async ()=>{

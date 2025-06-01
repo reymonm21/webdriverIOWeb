@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals';
+import { $, expect, browser } from "@wdio/globals";
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';

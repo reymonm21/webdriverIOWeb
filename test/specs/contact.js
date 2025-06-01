@@ -1,4 +1,4 @@
-import { expect } from '@wdio/globals';
+import { $, expect, browser } from "@wdio/globals";
 
 describe('Home', () => {
     it('Fill out form and assert confirmation', async ()=>{

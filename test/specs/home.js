@@ -1,5 +1,5 @@
 //Practice E-Commerce Site – SDET Unicorns
-import { expect } from '@wdio/globals';
+import { $, expect, browser } from "@wdio/globals";
 
 describe('Home', () => {
     it('Open URL & Assert title', async ()=>{

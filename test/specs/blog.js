@@ -1,4 +1,4 @@
-import { expect } from '@wdio/globals';
+import { $, expect, browser } from "@wdio/globals";
 
 describe('Home', () => {
     it('Get the text from all menu items and assert them', async ()=>{
