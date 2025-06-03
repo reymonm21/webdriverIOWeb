@@ -1,0 +1,22 @@
+{
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true, // for test globals like `describe`, `it`
+  },
+  "plugins": [
+    "wdio"
+],
+  "extends": [
+    "eslint:recommended",
+    "plugin:wdio/recommended"
+  ],
+  "rules": {
+    // You can override WDIO rules here
+   // 'wdio/no-pause': 'warn', // example: only warn on `browser.pause()`
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  }
+}

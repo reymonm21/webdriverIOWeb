@@ -14,4 +14,5 @@ describe('Home', () => {
         //Assert title
         await expect(recentPosts).toHaveLength(5);
     });
+    console.log('ssas');
 });
