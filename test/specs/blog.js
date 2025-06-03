@@ -1,18 +1,19 @@
-import { $, expect, browser } from "@wdio/globals";
+import BlogPage from '../pages/blog-page';
 
-describe('Home', () => {
-    it('Get the text from all menu items and assert them', async ()=>{
-        //Open URL
-        await browser.url('/blog');
+describe("Blog", () => {
+  it("Get the list of all Recent Posts & assert the length of each list item > 1 & assert the total count = 4", async () => {
+    await BlogPage.open();
 
-        const recentPosts = await $$('#recent-posts-3 ul li');
+    // Get the Recent Post List Elements
+    const recentPostsList = await BlogPage.listRecentPosts;
 
-        for(const post of recentPosts){
-            const text = await post.getText();
-            await expect(text.length).toBeGreaterThan(10);
-        }
-        //Assert title
-        await expect(recentPosts).toHaveLength(5);
-    });
-    console.log('ssas');
+    // Loop through the list and assert the text length is greater than 10
+    for (const item of recentPostsList) {
+      const text = await item.getText();
+      await expect(text.length).toBeGreaterThan(10);
+    }
+
+    // Assert the total length of the list is 4
+    await expect(recentPostsList).toHaveLength(4);
+  });
 });

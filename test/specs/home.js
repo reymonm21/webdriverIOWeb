@@ -1,50 +1,70 @@
-//Practice E-Commerce Site – SDET Unicorns
-import { $, expect, browser } from "@wdio/globals";
-import HomePage from "../pages/home-page";
+import HomePage from '../pages/home-page';
+import allureReporter from '@wdio/allure-reporter';
+
 
 describe('Home', () => {
-    it('Open URL & Assert title', async ()=>{
-        //Open URL
-        await HomePage.open();
 
-        //Assert title
-        await expect(browser).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
-    });
-    it('Open URL & Assert URL', async ()=>{
-        //Open URL
-        await HomePage.open();
+  // before(async () => {
+  //   console.log('THIS COULD BE USED FOR TEST SETUP');
+  // })
 
-        //Assert title
-        await expect(browser).toHaveUrl('https://practice.sdetunicorns.com/');
-    });
-        it('Open URL & Assert Get Started Page', async ()=>{
-        //Open URL
-        await HomePage.open();
-        await $('#get-started').click();
-        
-        //Assert title
-        await expect(browser).toHaveUrl(expect.stringContaining('get-started'));
-    });
-     it('Open URL & Assert Get Not to have Get Started Page', async ()=>{
-        //Open URL
-        await browser.url('https://practice.sdetunicorns.com/#get-started');
-        await $('.custom-logo').click();
+  beforeEach(async () => {
+    console.log('THIS RUNS BEFORE EACH TEST');
 
-        //Assert title
-        await expect(browser).toHaveUrl(expect.not.stringContaining('get-started'));
-    });
-         it('Find heading element and assert text', async ()=>{
-        //Open URL
-        await browser.url('https://practice.sdetunicorns.com/#get-started');
-       //Find heading element
-        const heading1 = await $('.elementor-widget-container h1');
+    // Open URL
+    await HomePage.open();
+  })
 
-        //Get text
-        const text1 = await heading1.getText();
+  // after(async () => {
+  //   console.log('THIS COULD BE USED FOR TEST CLEANUP');
+  // })
 
-        //Assert text
-        await expect(text1).toEqual('Think different. Make different');
-        await expect(heading1).toHaveText('Think different. Make different');
+  // afterEach(async () => {
+  //   console.log('THIS RUNS AFTER EACH TEST');
+  // })
 
-    });
+  it('Open URL & assert title', async () => {
+    allureReporter.addSeverity("minor");
+
+    // Assert title
+    await expect(browser).toHaveTitle('Practice E-Commerce Site – Automation Bro');
+  });
+
+  it('Open About Page & assert URL', async () => {
+    // Open About Page
+    await browser.url('https://practice.automationbro.com/about');
+
+    // Assert URL
+    await expect(browser).toHaveUrl('https://practice.automationbro.com/about/');
+  });
+
+  it('Click get started btn & assert url contains get-started text', async () => {
+    // Click get started button
+    await HomePage.btnGetStarted.click();
+
+    // Assert url contains get-started text
+    await expect(browser).toHaveUrlContaining('get-started');
+  });
+
+  it('Click logo & assert url DOES NOT contains get-started text', async () => {
+    allureReporter.addFeature("Logo Verification");
+
+    // Click logo
+    await HomePage.imageLogo.click();
+
+    // Assert url does not contains get-started text
+    await expect(browser).not.toHaveUrlContaining('get-started');
+  });
+
+  it('Find heading element & assert the text', async () => {
+    // find heading element
+    const headingEl = await HomePage.txtHeading;
+
+    // get the text
+    const headingText = await headingEl.getText();
+
+    // Assert the text
+    await expect(headingText).toEqual('Think different. Make different.'); // Jest library
+    // await expect(headingEl).toHaveText('Think different. Make different!'); // wdio expect assertion
+  });
 });

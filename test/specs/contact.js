@@ -1,22 +1,16 @@
-import { $, expect, browser } from "@wdio/globals";
+import ContactPage from '../pages/contact-page';
+import * as faker from 'faker';
 
-describe('Home', () => {
-    it('Fill out form and assert confirmation', async ()=>{
-        //Open URL
-        await browser.url('/');
-        await $('#menu-item-493').click();
-        
-        await $('#evf-277-field_ys0GeZISRs-1').setValue('Reymon');
-        await $('#evf-277-field_LbH5NxasXM-2').setValue('Reymon@gmail.com');
-        await $('#evf-277-field_66FR384cge-3').setValue('8002589874');
-        await $('#evf-277-field_yhGx3FOwr2-4').setValue('Hola como estas');
+describe("Contact", () => {
+  it("Fill all the input fields, submit form and assert success message", async () => {
+    await ContactPage.open();
 
-        await $('#evf-submit-277').click();
+    // Fill out the input fields & click submit
+    // await ContactPage.submitForm('Test Name', 'test@mail.com', '123456789', 'This is a test message');
+    await ContactPage.submitForm(faker.name.findName(), faker.internet.email(), faker.phone.phoneNumber(), faker.lorem.paragraphs(2));
 
-        const successAlert = $("[role='alert']");
-
-
-        //Assert title
-        await expect(successAlert).toHaveText('Thanks for contacting us! We will be in touch with you shortly');
-    });
+    // Assert the success message
+    const successAlert = ContactPage.alertSuccess;
+    await expect(successAlert).toHaveTextContaining('Thanks for contacting us! We will be in touch with you shortly');
+  });
 });
