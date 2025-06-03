@@ -1,24 +1,25 @@
 //Practice E-Commerce Site – SDET Unicorns
 import { $, expect, browser } from "@wdio/globals";
+import HomePage from "../pages/home-page";
 
 describe('Home', () => {
     it('Open URL & Assert title', async ()=>{
         //Open URL
-        await browser.url('https://practice.sdetunicorns.com/');
+        await HomePage.open();
 
         //Assert title
         await expect(browser).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
     });
     it('Open URL & Assert URL', async ()=>{
         //Open URL
-        await browser.url('https://practice.sdetunicorns.com/');
+        await HomePage.open();
 
         //Assert title
         await expect(browser).toHaveUrl('https://practice.sdetunicorns.com/');
     });
         it('Open URL & Assert Get Started Page', async ()=>{
         //Open URL
-        await browser.url('https://practice.sdetunicorns.com/');
+        await HomePage.open();
         await $('#get-started').click();
         
         //Assert title
@@ -43,7 +44,7 @@ describe('Home', () => {
 
         //Assert text
         await expect(text1).toEqual('Think different. Make different');
-        await expect(heading1).toHaveText('Think different. Make different.');
+        await expect(heading1).toHaveText('Think different. Make different');
 
     });
 });
