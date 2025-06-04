@@ -3,6 +3,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@faker-js/faker": "^9.8.0",
     "@wdio/cli": "^9.15.0",
     "@wdio/local-runner": "^9.15.0",
     "@wdio/mocha-framework": "^9.15.0",
