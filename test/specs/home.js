@@ -1,5 +1,5 @@
 import HomePage from '../pages/home-page';
-//import allureReporter from '@wdio/allure-reporter';
+import allureReporter from '@wdio/allure-reporter';
 
 
 describe('Home', () => {

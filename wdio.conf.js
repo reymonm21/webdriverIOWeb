@@ -1,3 +1,4 @@
+import allureCommandline from "allure-commandline";
 export const config = {
     //
     // ====================
@@ -21,7 +22,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/home.js'
+        './test/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -52,7 +53,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 6,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -60,11 +61,11 @@ export const config = {
     //
     capabilities: [{
         browserName: 'chrome'
-    }//, {
-     //   browserName: 'firefox'
-    //}, {
-     //   browserName: 'MicrosoftEdge'
-    //}
+    }, {
+        browserName: 'firefox'
+    }, {
+        browserName: 'MicrosoftEdge'
+    }
 ],
 
     //
@@ -137,7 +138,11 @@ export const config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: ['spec', ['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+    }]],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -285,8 +290,26 @@ export const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+     onComplete: function() {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allureCommandline(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function(exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+     },
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session
