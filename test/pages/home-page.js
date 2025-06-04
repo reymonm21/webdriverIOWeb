@@ -10,7 +10,7 @@ class HomePage {
   }
 
   get imageLogo() {
-    return $('//img[@alt="Practice E-Commerce Site"]');
+    return $('.custom-logo');
   }
 
   get txtHeading() {

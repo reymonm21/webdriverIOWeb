@@ -27,15 +27,15 @@ describe('Home', () => {
     allureReporter.addSeverity("minor");
 
     // Assert title
-    await expect(browser).toHaveTitle('Practice E-Commerce Site – Automation Bro');
+    await expect(browser).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
   });
 
   it('Open About Page & assert URL', async () => {
     // Open About Page
-    await browser.url('https://practice.automationbro.com/about');
+    await browser.url('https://practice.sdetunicorns.com/about');
 
     // Assert URL
-    await expect(browser).toHaveUrl('https://practice.automationbro.com/about/');
+    await expect(browser).toHaveUrl('https://practice.sdetunicorns.com/about/');
   });
 
   it('Click get started btn & assert url contains get-started text', async () => {
@@ -43,7 +43,7 @@ describe('Home', () => {
     await HomePage.btnGetStarted.click();
 
     // Assert url contains get-started text
-    await expect(browser).toHaveUrlContaining('get-started');
+    await expect(browser).toHaveUrl(expect.stringContaining('get-started'));
   });
 
   it('Click logo & assert url DOES NOT contains get-started text', async () => {
@@ -53,7 +53,7 @@ describe('Home', () => {
     await HomePage.imageLogo.click();
 
     // Assert url does not contains get-started text
-    await expect(browser).not.toHaveUrlContaining('get-started');
+    await expect(browser).toHaveUrl(expect.not.stringContaining('get-started'));
   });
 
   it('Find heading element & assert the text', async () => {

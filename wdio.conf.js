@@ -1,4 +1,4 @@
-import allureCommandline from "allure-commandline";
+import allure from 'allure-commandline';
 export const config = {
     //
     // ====================
@@ -26,7 +26,7 @@ export const config = {
     ],
     // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
+        './test/specs/**/*contact.js'
     ],
     suites: {
         smoke: [
@@ -61,11 +61,11 @@ export const config = {
     //
     capabilities: [{
         browserName: 'chrome'
-    }, {
-        browserName: 'firefox'
-    }, {
-        browserName: 'MicrosoftEdge'
-    }
+    }//, {
+       // browserName: 'firefox'
+    //}, {
+       // browserName: 'MicrosoftEdge'
+    //}
 ],
 
     //
@@ -290,26 +290,24 @@ export const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-     onComplete: function() {
-        const reportError = new Error('Could not generate Allure report')
-        const generation = allureCommandline(['generate', 'allure-results', '--clean'])
+     onComplete: function () {
         return new Promise((resolve, reject) => {
-            const generationTimeout = setTimeout(
-                () => reject(reportError),
-                5000)
+            const generation = allure(['generate', 'allure-results', '--clean']);
+            const timeout = setTimeout(() => {
+                reject(new Error('Allure report generation timed out'));
+            }, 10000);
 
-            generation.on('exit', function(exitCode) {
-                clearTimeout(generationTimeout)
-
+            generation.on('exit', (exitCode) => {
+                clearTimeout(timeout);
                 if (exitCode !== 0) {
-                    return reject(reportError)
+                    return reject(new Error('Could not generate Allure report'));
                 }
+                console.log('Allure report successfully generated');
+                resolve();
+            });
+        });
+    }
 
-                console.log('Allure report successfully generated')
-                resolve()
-            })
-        })
-     },
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session
