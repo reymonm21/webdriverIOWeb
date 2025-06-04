@@ -27,6 +27,15 @@ export const config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
+    suites: {
+        smoke: [
+            './test/specs/**/blog.js'
+        ],
+        component: [
+            './test/specs/**/upload.js'
+        ]
+        //npx wdio --suite smoke
+    },
     //
     // ============
     // Capabilities
