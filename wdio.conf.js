@@ -294,21 +294,21 @@ export const config = {
      * @param {<Object>} results object containing test results
      */
      onComplete: function () {
-        return new Promise((resolve, reject) => {
-            const generation = allure(['generate', 'allure-results', '--clean']);
-            const timeout = setTimeout(() => {
-                reject(new Error('Allure report generation timed out'));
-            }, 10000);
+       // return new Promise((resolve, reject) => {
+         //   const generation = allure(['generate', 'allure-results', '--clean']);
+         //   const timeout = setTimeout(() => {
+        //        reject(new Error('Allure report generation timed out'));
+        //    }, 10000);
 
-            generation.on('exit', (exitCode) => {
-                clearTimeout(timeout);
-                if (exitCode !== 0) {
-                    return reject(new Error('Could not generate Allure report'));
-                }
-                console.log('Allure report successfully generated');
-                resolve();
-            });
-        });
+        //    generation.on('exit', (exitCode) => {
+         //       clearTimeout(timeout);
+          //      if (exitCode !== 0) {
+         //           return reject(new Error('Could not generate Allure report'));
+          //      }
+          //      console.log('Allure report successfully generated');
+           //     resolve();
+       //     });
+     //   });
     }
 
     /**
