@@ -295,7 +295,7 @@ export const config = {
      */
      onComplete: function () {
         return new Promise((resolve, reject) => {
-            const generation = allure(['generate', 'allure-results', '--clean']);
+           const generation = allure(['generate', 'allure-results', '--clean']);
             const timeout = setTimeout(() => {
                 reject(new Error('Allure report generation timed out'));
             }, 10000);
